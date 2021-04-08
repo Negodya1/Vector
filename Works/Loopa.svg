@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg viewBox="0 0 251.317 248.554" xmlns="http://www.w3.org/2000/svg" xmlns:bx="https://boxy-svg.com">
+  <defs>
+    <filter id="drop-shadow-filter-0" x="-500%" y="-500%" width="1000%" height="1000%" bx:preset="drop-shadow 1 2 2 1 0.31 rgba(0,0,0,0.3)">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="1"/>
+      <feOffset dx="2" dy="2"/>
+      <feComponentTransfer result="offsetblur">
+        <feFuncA id="spread-ctrl" type="linear" slope="0.62"/>
+      </feComponentTransfer>
+      <feFlood flood-color="rgba(0,0,0,0.3)"/>
+      <feComposite in2="offsetblur" operator="in"/>
+      <feMerge>
+        <feMergeNode/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  <circle style="fill: rgb(42, 201, 7);" cx="106.878" cy="93.557" r="73.432"/>
+  <path style="stroke: rgb(221, 221, 113); fill: rgb(0, 174, 255);" d="M 42.865 132.096 C 52.996 106.46 72.031 96.175 99.97 101.241 C 100.869 101.404 103.785 115.527 108.72 143.61 C 112.697 166.244 117.149 172.384 122.076 162.031 C 142.879 118.314 153.317 100.2 153.391 107.689 C 153.571 125.885 160.786 117.442 175.036 82.36 C 186.956 53.014 168.995 47.948 121.154 67.162 C 99.035 76.045 94.43 69.138 107.339 46.439 C 123.652 17.755 114.134 12.843 78.786 31.702 C 71.027 35.842 64.886 45.82 60.365 61.636 C 60.079 62.636 51.79 66.167 35.497 72.228 C 25.704 75.871 25.243 86.31 34.115 103.544"/>
+  <path d="M 606 432 m -81.994 0 a 81.994 81.994 0 1 0 163.988 0 a 81.994 81.994 0 1 0 -163.988 0 Z M 606 432 m -70 0 a 70 70 0 0 1 140 0 a 70 70 0 0 1 -140 0 Z" style="fill: rgb(65, 65, 65); filter: url(#drop-shadow-filter-0);" transform="matrix(-0.617822, 0.786318, -0.786318, -0.617822, 820.506975, -116.462252)" bx:shape="ring 606 432 70 70 81.994 81.994 1@6813c9ee"/>
+  <path style="fill: rgb(65, 65, 65);" d="M 150.628 157.775 L 169.049 143.498 C 169.049 143.498 227.918 194.271 232.602 212.117 C 237.286 229.963 214.58 234.534 213.009 229.554 C 213.186 230.001 208.538 232.864 150.628 157.775 Z"/>
+</svg>
