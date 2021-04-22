@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width = "640" height = "480" xmlns = "http://www.w3.org/2000/svg" xmlns:svg = "http://www.w3.org/2000/svg">
+	<g class="layer">
+		<title>Layer 1</title>
+		<rect fill="#FF00FF" height="100" id="1" stroke="#00FF00" stroke-width="3" width="50" x="50" y="35"/>
+	</g>
+</svg>
