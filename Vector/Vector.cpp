@@ -252,8 +252,18 @@ int main() {
 		rect.strokewidth = 5;
 		rect.x = 0;
 		rect.y = 0;
-
-		cout << "\nВыберите действие\n1. Добавить прямоугольник над текущим слоем\n2. Добавить прямоугольник под текущим слоем\n3. Удалить текущий слой\n4. Сохранить в файл\n0. Выход: ";
+		
+		if (l.count > 0) {
+			cout << "\nТекущий слой: ";
+			cout << "\nЦвет = #" << l.C->data.maincolor << "\nРазмеры = " << l.C->data.height << 'x' << l.C->data.width;
+			if (l.C->data.stroke == true) {
+				cout << "\nЦвет обводки = #" << l.C->data.strokecolor << "\tШирина обводки = " << l.C->data.strokewidth;
+			}
+			else cout << "\nОбводка: выкл";
+			cout << "\nКоординаты: " << l.C->data.x << 'x' << l.C->data.y << endl;
+		}
+		
+		cout << "\nВыберите действие\n1. Добавить прямоугольник над текущим слоем\n2. Добавить прямоугольник под текущим слоем\n3. Изменить текущий слой\n4. Удалить текущий слой\n5. Следующий слой\n6. Предыдущий слой\n7. Сохранить в файл\n0. Выход: ";
 		cin >> m;
 
 		if (m == 1 || m == 2) {
@@ -261,7 +271,7 @@ int main() {
 			do {
 				cout << "\n1. Цвет = #" << rect.maincolor << "\n2. Размеры = " << rect.height << 'x' << rect.width;
 				if (rect.stroke == true) {
-					cout << "\n3. Цвет обводки = #" << rect.strokecolor << "\nШирина обводки = " << rect.strokewidth;
+					cout << "\n3. Цвет обводки = #" << rect.strokecolor << "\tШирина обводки = " << rect.strokewidth;
 				}
 				else cout << "\n3. Обводка: выкл";
 				cout << "\n4. Координаты: " << rect.x << 'x' << rect.y;
@@ -308,34 +318,88 @@ int main() {
 			id++;
 		}
 		if (m == 3) {
-			l.Del(rect);
+			unsigned short int n;
+			do {
+				cout << "\n1. Цвет = #" << l.C->data.maincolor << "\n2. Размеры = " << l.C->data.height << 'x' << l.C->data.width;
+				if (l.C->data.stroke == true) {
+					cout << "\n3. Цвет обводки = #" << l.C->data.strokecolor << "\tШирина обводки = " << l.C->data.strokewidth;
+				}
+				else cout << "\n3. Обводка: выкл";
+				cout << "\n4. Координаты: " << l.C->data.x << 'x' << l.C->data.y;
+
+				cout << "\n\nВыберите параметр для изменения: ";
+				cin >> n;
+
+				if (n == 1) {
+					cout << "\nЦвет: ";
+					cin >> l.C->data.maincolor;
+				}
+				if (n == 2) {
+					cout << "\nШирина: ";
+					cin >> l.C->data.width;
+					cout << "\nДлина: ";
+					cin >> l.C->data.height;
+				}
+				if (n == 3) {
+					if (l.C->data.stroke == true) {
+						unsigned short int t;
+						cout << "\n1. Выключить обводку\n2. Изменить цвет обводки\n3. Изменить толщину обводки: ";
+						cin >> t;
+						if (t == 2) {
+							cout << "\nЦвет: ";
+							cin >> l.C->data.strokecolor;
+						}
+						if (t == 3) {
+							cout << "\nШирина: ";
+							cin >> l.C->data.strokewidth;
+						}
+						if (t == 1) l.C->data.stroke = false;
+					}
+					else l.C->data.stroke = true;
+				}
+				if (n == 4) {
+					cout << "x: ";
+					cin >> l.C->data.x;
+					cout << "y: ";
+					cin >> l.C->data.y;
+				}
+			} while (n > 0 && n < 5);
 		}
 		if (m == 4) {
-			List temp = l;
-			temp.AddLast(rect);
-			temp.MoveFirst();
+			l.Del(rect);
+		}
+		
+		if (m == 5) l.MoveNext();
+		if (m == 6) l.MovePrev();
+
+		if (m == 7) {
+			unsigned int c = l.count;
+
 			ofstream q("output.svg");
 			q << "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>" << endl;
 			q << "<svg width = \"" << viewwidth << "\" height = \"" << viewheight << "\" xmlns = \"http://www.w3.org/2000/svg\" xmlns:svg = \"http://www.w3.org/2000/svg\">" << endl;
 
-			while (temp.Del(rect)) {
+			l.MoveFirst();
+			for (unsigned int i = 0; i < c; i++) {
+				rect = l.C->data;
+
 				if (rect.stroke == true) q << "\t\t<rect fill=\"#" << rect.maincolor << "\" height=\"" << rect.height << "\" id=\"" << rect.id << "\" stroke=\"#" << rect.strokecolor << "\" stroke-width=\"" << rect.strokewidth << "\" width=\"" << rect.width << "\" x=\"" << rect.x << "\" y=\"" << rect.y << "\"/>" << endl;
 				else q << "\t\t<rect fill=\"#" << rect.maincolor << "\" height=\"" << rect.height << "\" id=\"" << rect.id << "\" width=\"" << rect.width << "\" x=\"" << rect.x << "\" y=\"" << rect.y << "\"/>" << endl;
+
+				l.MoveNext();
 			}
 
 			q << "</svg>" << endl;
 			q.close();
 		}
-	} while (m > 0 && m < 5);
+	} while (m > 0 && m < 8);
 	
-	List temp = l;
-	temp.AddLast(rect);
-	temp.MoveFirst();
+	l.AddLast(rect);
 	ofstream f("output.svg");
 	f << "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>" << endl;
 	f << "<svg width = \"" << viewwidth << "\" height = \"" << viewheight << "\" xmlns = \"http://www.w3.org/2000/svg\" xmlns:svg = \"http://www.w3.org/2000/svg\">" << endl;
 
-	while (temp.Del(rect)) {
+	while (l.DelFirst(rect)) {
 		if (rect.stroke == true) f << "\t\t<rect fill=\"#" << rect.maincolor << "\" height=\"" << rect.height << "\" id=\"" << rect.id << "\" stroke=\"#" << rect.strokecolor << "\" stroke-width=\"" << rect.strokewidth << "\" width=\"" << rect.width << "\" x=\"" << rect.x << "\" y=\"" << rect.y << "\"/>" << endl;
 		else f << "\t\t<rect fill=\"#" << rect.maincolor << "\" height=\"" << rect.height << "\" id=\"" << rect.id << "\" width=\"" << rect.width << "\" x=\"" << rect.x << "\" y=\"" << rect.y << "\"/>" << endl;
 	}
